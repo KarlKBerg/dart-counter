@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/style.css" />
-    <script src="script/script.js"></script>
     <title>Dart counter</title>
   </head>
   <body>
@@ -14,17 +13,17 @@
     <main>
       <section id="users">
         <article class="user turn" id="user1">
-          <h2 class="score">501</h2>
+          <h2 class="score" id="user1-score">501</h2>
           <h3 class="username">Karl</h3>
         </article>
         <article class="user" id="user2">
-          <h2 class="score" score>501</h2>
+          <h2 class="score" id="user2-score">501</h2>
           <h3 class="username" username>Guest</h3>
         </article>
       </section>
       <section id="score-input">
         <div id="input">
-          <input type="number" />
+          <input type="number" id="score-number" />
         </div>
 
         <div id="keypad">
@@ -40,9 +39,10 @@
           <button id="zero">0</button>
         </div>
         <div id="submit">
-          <button>Submit</button>
+          <button onclick="submitScore()">Submit</button>
         </div>
       </section>
     </main>
+    <script src="script/script.js"></script>
   </body>
 </html>
