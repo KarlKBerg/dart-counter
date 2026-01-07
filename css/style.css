@@ -28,6 +28,9 @@ header {
   align-items: center;
   margin-top: 40px;
 }
+#users .turn {
+  color: green;
+}
 #users .score {
   font-size: 48px;
 }
