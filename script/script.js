@@ -15,7 +15,7 @@ const user2 = {
   isMyTurn: false,
   throwCounter: 0,
 };
-
+score = Number(document.getElementById("score-number").value);
 let calculateScore = (totalScore, score) => {
   score = Number(document.getElementById("score-number").value);
   totalScore = totalScore - score;
