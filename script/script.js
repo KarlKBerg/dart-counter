@@ -61,14 +61,32 @@ function submitScore() {
 
 /*
 - Player stats: 
-  - Last scores
-  - Average score 3-darts
-  - Total throws
+  - Last scores (Array)
+  - Average score 3-darts (calculated from array)
+  - Total throws (can be calculated from array, array.length / 3)
 
 - Win condition
   - Display winner
+    START 
+      IF scor is 0 
+      AND last score is double 
+      THEN display winner
+    END
   - Play again button
+    START
+      IF winner is displayed
+      AND legs/sets is over
+      AND play again button is clicked
+      THEN reset game
+    END
   - Double out check
+      START
+      IF score is 0
+      PROMT player to confirm last score was double
+      IF not double
+      REVERT score to before last throw
+      NOTIFY player that last score must be double to win
+    END
   - Display possible checkouts?
 
 - Reset game (auto when player wins)
