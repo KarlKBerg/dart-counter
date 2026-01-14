@@ -1,7 +1,9 @@
 const players = [];
 // Choosing number of players (2-8)
 let playerCount = 2;
+let selectedScore = 501;
 
+// Handle number of players button clicks
 document.querySelectorAll(".nr-of-players button").forEach((btn) => {
   btn.addEventListener("click", () => {
     // Remove active class from all buttons
@@ -64,11 +66,11 @@ const resetGame = () => {
 };
 
 // Create users based on playerCount
-const createPlayer = (playerNumber, name) => {
+const createPlayer = (playerNumber, name, startingScore) => {
   const defaultPlayer = {
     name: name || `Player ${playerNumber + 1}`,
-    startingScore: 501,
-    currentScore: 501,
+    startingScore: startingScore,
+    currentScore: startingScore,
     throws: [],
     avg: 0,
     lastScore: 0,
@@ -80,13 +82,25 @@ const createPlayer = (playerNumber, name) => {
   players.push(defaultPlayer);
 };
 
+// Handle starting score selection
+document.querySelectorAll(".starting-score button").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".starting-score button").forEach((b) => {
+      b.classList.remove("active");
+    });
+    btn.classList.add("active");
+    selectedScore = parseInt(btn.dataset.score);
+  });
+});
+
 // Confirm settings and start game
 const startGameBtn = document.getElementById("start-game-btn");
 startGameBtn.addEventListener("click", startGame);
 function startGame() {
+  players.length = 0; // Clear previous players
   for (let i = 0; i < playerCount; i++) {
-    let userName = document.getElementById(`player-name-${i}`).value;
-    createPlayer(i, userName);
+    let userName = document.getElementById(`player-name-${i}`).value.trim();
+    createPlayer(i, userName, selectedScore);
   }
   console.log(players);
   console.log(playerCount);
