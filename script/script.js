@@ -3,6 +3,7 @@ const players = [];
 let playerCount = 2;
 let selectedScore = 501;
 let doubleOut = true;
+let legsToWin = 1;
 
 // Handle number of players button clicks
 document.querySelectorAll(".nr-of-players button").forEach((btn) => {
@@ -55,6 +56,9 @@ document.querySelectorAll(".nr-of-players button").forEach((btn) => {
 const resetGame = () => {
   players.length = 0;
   playerCount = 2;
+  selectedScore = 501;
+  doubleOut = true;
+  legsToWin = 1;
   document.getElementById("settings").classList.remove("hidden");
   document.getElementById("game").classList.add("hidden");
   document
@@ -88,6 +92,17 @@ document.querySelectorAll(".out-option button").forEach((btn) => {
   });
 });
 
+// Handle legs to win section
+document.querySelectorAll(".legs button").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".legs button").forEach((b) => {
+      b.classList.remove("active");
+    });
+    btn.classList.add("active");
+    legsToWin = parseInt(btn.dataset.legs);
+  });
+});
+
 // Create users based on playerCount
 const createPlayer = (playerNumber, name, startingScore, doubleOut) => {
   const defaultPlayer = {
@@ -116,6 +131,7 @@ function startGame() {
   }
   console.log(players);
   console.log(playerCount);
+  console.log(legsToWin);
 
   // Hide settings and show game interface
   document.getElementById("settings").classList.add("hidden");
