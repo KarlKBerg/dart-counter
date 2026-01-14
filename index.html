@@ -29,14 +29,35 @@
           <button id="7-players" data-players="7">7 players</button>
           <button id="8-players" data-players="8">8 players</button>
 
-          <div class="input-container" id="player-names-container"></div>
+          <div class="input-container" id="player-names-container">
+            <div class="player-name-input">
+              <label>Player 1</label>
+              <input
+                type="text"
+                id="player-name-0"
+                name="player-name-0"
+                ,
+                placeholder="Player 1"
+              />
+            </div>
+            <div class="player-name-input">
+              <label>Player 2</label>
+              <input
+                type="text"
+                id="player-name-1"
+                name="player-name-1"
+                ,
+                placeholder="Player 2"
+              />
+            </div>
+          </div>
         </div>
 
         <!-- Choose starting score -->
         <div class="starting-score">
           <h3 class="setting-heading">Choose starting score</h3>
-          <button id="301">301</button>
-          <button id="501" class="active">501</button>
+          <button id="301" data-score="301" class="">301</button>
+          <button id="501" data-score="501" class="active">501</button>
         </div>
         <!-- Choose double or single out -->
         <div class="out-option">
