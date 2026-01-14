@@ -19,14 +19,14 @@ header {
   padding: 2.4rem 0;
 }
 .main-section {
-  width: 50%;
+  width: 60%;
   background: #2f2f2f;
   margin: 0 auto;
   padding: 2.4rem;
   border-radius: 0.8rem;
 }
 /* SETTINGS */
-#settings {
+.settings-container {
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
