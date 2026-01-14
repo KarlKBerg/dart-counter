@@ -2,6 +2,7 @@ const players = [];
 // Choosing number of players (2-8)
 let playerCount = 2;
 let selectedScore = 501;
+let doubleOut = true;
 
 // Handle number of players button clicks
 document.querySelectorAll(".nr-of-players button").forEach((btn) => {
@@ -54,6 +55,8 @@ document.querySelectorAll(".nr-of-players button").forEach((btn) => {
 const resetGame = () => {
   players.length = 0;
   playerCount = 2;
+  document.getElementById("settings").classList.remove("hidden");
+  document.getElementById("game").classList.add("hidden");
   document
     .querySelectorAll(".nr-of-players button")
     .forEach((b) => b.classList.remove("active"));
@@ -61,25 +64,6 @@ const resetGame = () => {
     .querySelector('.nr-of-players button[data-players="2"]')
     .classList.add("active");
   document.getElementById("player-names-container").innerHTML = "";
-  document.getElementById("settings").classList.remove("hidden");
-  document.getElementById("game").classList.add("hidden");
-};
-
-// Create users based on playerCount
-const createPlayer = (playerNumber, name, startingScore) => {
-  const defaultPlayer = {
-    name: name || `Player ${playerNumber + 1}`,
-    startingScore: startingScore,
-    currentScore: startingScore,
-    throws: [],
-    avg: 0,
-    lastScore: 0,
-    handicap: false,
-    doubleOut: true,
-    legsWon: 0,
-    isMyTurn: playerNumber === 0 ? true : false,
-  };
-  players.push(defaultPlayer);
 };
 
 // Handle starting score selection
@@ -93,6 +77,34 @@ document.querySelectorAll(".starting-score button").forEach((btn) => {
   });
 });
 
+// handle double out or single out selection
+document.querySelectorAll(".out-option button").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".out-option button").forEach((b) => {
+      b.classList.remove("active");
+    });
+    btn.classList.add("active");
+    doubleOut = btn.dataset.double === "true";
+  });
+});
+
+// Create users based on playerCount
+const createPlayer = (playerNumber, name, startingScore, doubleOut) => {
+  const defaultPlayer = {
+    name: name || `Player ${playerNumber + 1}`,
+    startingScore: startingScore,
+    currentScore: startingScore,
+    throws: [],
+    avg: 0,
+    lastScore: 0,
+    handicap: false,
+    doubleOut: doubleOut,
+    legsWon: 0,
+    isMyTurn: playerNumber === 0 ? true : false,
+  };
+  players.push(defaultPlayer);
+};
+
 // Confirm settings and start game
 const startGameBtn = document.getElementById("start-game-btn");
 startGameBtn.addEventListener("click", startGame);
@@ -100,7 +112,7 @@ function startGame() {
   players.length = 0; // Clear previous players
   for (let i = 0; i < playerCount; i++) {
     let userName = document.getElementById(`player-name-${i}`).value.trim();
-    createPlayer(i, userName, selectedScore);
+    createPlayer(i, userName, selectedScore, doubleOut);
   }
   console.log(players);
   console.log(playerCount);
@@ -109,6 +121,9 @@ function startGame() {
   document.getElementById("settings").classList.add("hidden");
   document.getElementById("game").classList.remove("hidden");
 }
+
+// New game/reset button eventListener
+document.getElementById("new-game-btn").addEventListener("click", resetGame);
 
 /*
 - Player stats: 
