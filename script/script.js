@@ -12,6 +12,29 @@ document.querySelectorAll(".nr-of-players button").forEach((btn) => {
     btn.classList.add("active");
     // Set playerCount based on button clicked
     playerCount = parseInt(btn.dataset.players);
+
+    // Create input fields for player names based on playerCount
+    const playerNamesContainer = document.getElementById(
+      "player-names-container"
+    );
+    for (let i = 0; i < playerCount; i++) {
+      if (!document.getElementById(`player-name-${i}`)) {
+        const div = document.createElement("div");
+        div.classList.add("player-name-input");
+
+        const label = document.createElement("label");
+        label.textContent = `Player ${i + 1}: `;
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.id = `player-name-${i}`;
+        input.name = `player-name-${i}`;
+        input.placeholder = `Player ${i + 1}`;
+        playerNamesContainer.appendChild(div);
+        div.appendChild(label);
+        div.appendChild(input);
+      }
+    }
   });
 });
 
@@ -36,8 +59,6 @@ const createPlayer = (playerNumber) => {
 const startGameBtn = document.getElementById("start-game-btn");
 startGameBtn.addEventListener("click", startGame);
 function startGame() {
-  // Add logic for creating players based on user input
-  // get playerCount from user input
   for (let i = 0; i < playerCount; i++) {
     createPlayer(i);
   }
