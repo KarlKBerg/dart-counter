@@ -120,6 +120,114 @@ const createPlayer = (playerNumber, name, startingScore, doubleOut) => {
   players.push(defaultPlayer);
 };
 
+// Display players
+function displayPlayers() {
+  const playersContainer = document.getElementById("players-container");
+  playersContainer.innerHTML = "";
+  players.forEach((player, index) => {
+    const playerDiv = document.createElement("div");
+
+    playerDiv.classList.add("player-card");
+    playerDiv.id = `player-${index}`;
+    if (player.isMyTurn) {
+      playerDiv.classList.add("player-turn");
+    } else {
+      playerDiv.classList.remove("player-turn");
+    }
+
+    const scoreLegsDiv = document.createElement("div");
+    scoreLegsDiv.classList.add("score-legs");
+
+    const nameHeading = document.createElement("h3");
+    nameHeading.textContent = player.name;
+
+    const scoreHeading = document.createElement("h3");
+    scoreHeading.id = `player-score-${index}`;
+    scoreHeading.textContent = `${player.currentScore}`;
+
+    const legsPara = document.createElement("p");
+    legsPara.id = `player-legs-${index}`;
+    legsPara.textContent = `${player.legsWon}`;
+
+    playersContainer.appendChild(playerDiv);
+    playerDiv.appendChild(nameHeading);
+    playerDiv.appendChild(scoreLegsDiv);
+    scoreLegsDiv.appendChild(scoreHeading);
+    scoreLegsDiv.appendChild(legsPara);
+  });
+}
+
+// Display current player stats
+function displayCurrentPlayerStats() {
+  const currentPlayerDiv = document.getElementById("current-player");
+  currentPlayerDiv.innerHTML = "";
+  const playerIsMyTurn = players.find((player) => player.isMyTurn === true);
+
+  if (playerIsMyTurn) {
+    const nameHeading = document.createElement("h3");
+    nameHeading.textContent = playerIsMyTurn.name;
+
+    const infoDiv = document.createElement("div");
+    infoDiv.classList.add("info");
+
+    const statsDiv = document.createElement("div");
+    statsDiv.classList.add("stats");
+
+    const avgDiv = document.createElement("div");
+    avgDiv.classList.add("avg");
+
+    const lastScoreDiv = document.createElement("div");
+    lastScoreDiv.classList.add("last-score");
+
+    const dartsThrownDiv = document.createElement("div");
+    dartsThrownDiv.classList.add("darts-thrown");
+
+    const scoreDisplay = document.createElement("h3");
+    scoreDisplay.classList.add("score");
+    scoreDisplay.textContent = playerIsMyTurn.currentScore;
+
+    const avgTitle = document.createElement("h4");
+    avgTitle.classList.add("title");
+    avgTitle.textContent = "3-dart average:";
+
+    const avgValue = document.createElement("h4");
+    avgValue.classList.add("value");
+    avgValue.textContent = playerIsMyTurn.avg;
+
+    const lastScoreTitle = document.createElement("h4");
+    lastScoreTitle.classList.add("title");
+    lastScoreTitle.textContent = "Last score:";
+
+    const lastScoreValue = document.createElement("h4");
+    lastScoreValue.classList.add("value");
+    lastScoreValue.textContent = playerIsMyTurn.lastScore;
+
+    const dartsThrownTitle = document.createElement("h4");
+    dartsThrownTitle.classList.add("title");
+    dartsThrownTitle.textContent = "Darts thrown:";
+
+    const dartsThrownValue = document.createElement("h4");
+    dartsThrownValue.classList.add("value");
+    dartsThrownValue.textContent = playerIsMyTurn.throws.length;
+
+    currentPlayerDiv.appendChild(infoDiv);
+    infoDiv.appendChild(nameHeading);
+    infoDiv.appendChild(scoreDisplay);
+    currentPlayerDiv.appendChild(statsDiv);
+    statsDiv.appendChild(avgDiv);
+    avgDiv.appendChild(avgTitle);
+    avgDiv.appendChild(avgValue);
+
+    statsDiv.appendChild(lastScoreDiv);
+    lastScoreDiv.appendChild(lastScoreTitle);
+    lastScoreDiv.appendChild(lastScoreValue);
+
+    statsDiv.appendChild(dartsThrownDiv);
+    dartsThrownDiv.appendChild(dartsThrownTitle);
+    dartsThrownDiv.appendChild(dartsThrownValue);
+  }
+}
+
 // Confirm settings and start game
 const startGameBtn = document.getElementById("start-game-btn");
 startGameBtn.addEventListener("click", startGame);
@@ -129,12 +237,12 @@ function startGame() {
     let userName = document.getElementById(`player-name-${i}`).value.trim();
     createPlayer(i, userName, selectedScore, doubleOut);
   }
-  console.log(players);
-  console.log(playerCount);
-  console.log(legsToWin);
+  displayPlayers();
+  displayCurrentPlayerStats();
 
   // Hide settings and show game interface
   document.getElementById("settings").classList.add("hidden");
+
   document.getElementById("game").classList.remove("hidden");
 }
 
