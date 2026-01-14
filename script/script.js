@@ -22,13 +22,19 @@ document.getElementById("clear-btn").addEventListener("click", () => {
 
 // Store score for later use
 document.getElementById("submit-score").addEventListener("click", () => {
+  if (score === "") {
+    showErrorMessage("Can't submit empty score, enter 0");
+    return;
+  }
   let currentScore = parseInt(score);
   if (currentScore > 180) {
     showErrorMessage("Score can't be more than 180");
     score = "";
+    document.getElementById("score-input").value = score;
     return;
   } else {
     score = "";
+    document.getElementById("score-input").value = score;
   }
 });
 
