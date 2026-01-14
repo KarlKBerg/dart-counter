@@ -67,6 +67,24 @@ button:hover {
 #start-game-btn:hover {
   background: #239700;
 }
+/* Inputs for names */
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin-top: 1.6rem;
+}
+.input-container input {
+  font-size: 1.6rem;
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+  border: none;
+  background: white;
+}
+.player-name-input {
+  display: flex;
+  gap: 1.6rem;
+}
 /* HIDDEN */
 .hidden {
   display: none;
