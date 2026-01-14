@@ -107,7 +107,35 @@
       <!-- ==== GAME ==== -->
       <section id="game" class="main-section hidden">
         <h2 class="section-heading">Game on</h2>
-        <div id="players-container"></div>
+        <div class="game-container">
+          <div id="players-container">
+
+          </div>
+
+          <div id="current-player">
+
+          </div>
+        </div>
+        <div class="keypad">
+          <div class="input-submit">
+            <input type="number" id="score-input" placeholder="Enter score" />
+          <button id="submit-score">Submit</button>
+          </div>
+          <div class="keypad-buttons">
+            
+            <button class="keypad-btn">1</button>
+            <button class="keypad-btn">2</button>
+            <button class="keypad-btn">3</button>
+            <button class="keypad-btn">4</button>
+            <button class="keypad-btn">5</button>
+            <button class="keypad-btn">6</button>
+            <button class="keypad-btn">7</button>
+            <button class="keypad-btn">8</button>
+            <button class="keypad-btn">9</button>
+            <button id="clear-btn">C</button>
+            <button class="keypad-btn">0</button>
+        </div>
+        
         <div id="players-stats"></div>
         <button id="new-game-btn" class="">New Game</button>
       </section>
