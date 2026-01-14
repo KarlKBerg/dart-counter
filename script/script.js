@@ -5,6 +5,56 @@ let selectedScore = 501;
 let doubleOut = true;
 let legsToWin = 1;
 
+let score = "";
+
+// Get input from keypad
+document.querySelectorAll(".keypad-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    let clickedDigits = btn.innerHTML;
+    score = score + clickedDigits;
+    document.getElementById("score-input").value = score;
+  });
+});
+document.getElementById("clear-btn").addEventListener("click", () => {
+  score = "";
+  document.getElementById("score-input").value = score;
+});
+
+// Store score for later use
+document.getElementById("submit-score").addEventListener("click", () => {
+  let currentScore = parseInt(score);
+  if (currentScore > 180) {
+    showErrorMessage("Score can't be more than 180");
+    score = "";
+    return;
+  } else {
+    score = "";
+  }
+});
+
+// Display error and success message
+function showErrorMessage(message) {
+  const messageContainer = document.getElementById("display-message");
+  messageContainer.innerHTML = "";
+
+  const errorHeading = document.createElement("h2");
+  errorHeading.classList.add("error");
+  errorHeading.textContent = message;
+
+  messageContainer.appendChild(errorHeading);
+}
+
+function showSuccessMessage(message) {
+  const messageContainer = document.getElementById("display-message");
+  messageContainer.innerHTML = "";
+
+  const successHeading = document.createElement("h2");
+  successHeading.classList.add("success");
+  successHeading.textContent = message;
+
+  messageContainer.appendChild(successHeading);
+}
+
 // Handle number of players button clicks
 document.querySelectorAll(".nr-of-players button").forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -131,8 +181,6 @@ function displayPlayers() {
     playerDiv.id = `player-${index}`;
     if (player.isMyTurn) {
       playerDiv.classList.add("player-turn");
-    } else {
-      playerDiv.classList.remove("player-turn");
     }
 
     const scoreLegsDiv = document.createElement("div");
