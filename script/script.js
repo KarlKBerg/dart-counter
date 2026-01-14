@@ -35,13 +35,38 @@ document.querySelectorAll(".nr-of-players button").forEach((btn) => {
         div.appendChild(input);
       }
     }
+    // Remove extra input fields if playerCount is decreased
+    const existingInputs =
+      playerNamesContainer.querySelectorAll(".player-name-input");
+    existingInputs.forEach((inputDiv, index) => {
+      if (index >= playerCount) {
+        playerNamesContainer.removeChild(inputDiv);
+      }
+    });
+    // reset player array
+    players.length = 0;
   });
 });
 
+// reset game function
+const resetGame = () => {
+  players.length = 0;
+  playerCount = 2;
+  document
+    .querySelectorAll(".nr-of-players button")
+    .forEach((b) => b.classList.remove("active"));
+  document
+    .querySelector('.nr-of-players button[data-players="2"]')
+    .classList.add("active");
+  document.getElementById("player-names-container").innerHTML = "";
+  document.getElementById("settings").classList.remove("hidden");
+  document.getElementById("game").classList.add("hidden");
+};
+
 // Create users based on playerCount
-const createPlayer = (playerNumber) => {
+const createPlayer = (playerNumber, name) => {
   const defaultPlayer = {
-    name: `Player ${playerNumber + 1}`,
+    name: name || `Player ${playerNumber + 1}`,
     startingScore: 501,
     currentScore: 501,
     throws: [],
@@ -60,7 +85,8 @@ const startGameBtn = document.getElementById("start-game-btn");
 startGameBtn.addEventListener("click", startGame);
 function startGame() {
   for (let i = 0; i < playerCount; i++) {
-    createPlayer(i);
+    let userName = document.getElementById(`player-name-${i}`).value;
+    createPlayer(i, userName);
   }
   console.log(players);
   console.log(playerCount);
