@@ -173,9 +173,7 @@ document.getElementById("new-game-btn").addEventListener("click", resetGame);
 
 - Reset game (auto when player wins)
 - Legs, sets (best of X)
-- Add player(s) (more than 2 players, up to 6-8?
 - Sound effects
-- Improve UI (better layout, colors, responsiveness
 - Mobile friendly
 - Validate score input (0-180)
 - History log (display all scores thrown in the game at end of round)
