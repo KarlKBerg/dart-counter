@@ -1,3 +1,54 @@
+const players = [];
+// Choosing number of players (2-8)
+let playerCount = 2;
+
+document.querySelectorAll(".nr-of-players button").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    // Remove active class from all buttons
+    document.querySelectorAll(".nr-of-players button").forEach((b) => {
+      b.classList.remove("active");
+    });
+    // Add active class to clicked button
+    btn.classList.add("active");
+    // Set playerCount based on button clicked
+    playerCount = parseInt(btn.dataset.players);
+  });
+});
+
+// Create users based on playerCount
+const createPlayer = (playerNumber) => {
+  const defaultPlayer = {
+    name: `Player ${playerNumber + 1}`,
+    startingScore: 501,
+    currentScore: 501,
+    throws: [],
+    avg: 0,
+    lastScore: 0,
+    handicap: false,
+    doubleOut: true,
+    legsWon: 0,
+    isMyTurn: playerNumber === 0 ? true : false,
+  };
+  players.push(defaultPlayer);
+};
+
+// Confirm settings and start game
+const startGameBtn = document.getElementById("start-game-btn");
+startGameBtn.addEventListener("click", startGame);
+function startGame() {
+  // Add logic for creating players based on user input
+  // get playerCount from user input
+  for (let i = 0; i < playerCount; i++) {
+    createPlayer(i);
+  }
+  console.log(players);
+  console.log(playerCount);
+
+  // Hide settings and show game interface
+  document.getElementById("settings").classList.add("hidden");
+  document.getElementById("game").classList.remove("hidden");
+}
+
 /*
 - Player stats: 
   - Last scores (Array)
