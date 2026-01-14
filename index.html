@@ -19,51 +19,57 @@
         <!-- Choose number of players-->
         <div class="nr-of-players">
           <h3 class="setting-heading">Choose number of players</h3>
-          <button id="2-players">2 players</button>
-          <button id="3-players">3 players</button>
-          <button id="4-players">4 players</button>
-          <button id="5-players">5 players</button>
-          <button id="6-players">6 players</button>
-          <button id="7-players">7 players</button>
-          <button id="8-players">8 players</button>
+          <button id="2-players" class="active" data-players="2">
+            2 players
+          </button>
+          <button id="3-players" data-players="3">3 players</button>
+          <button id="4-players" data-players="4">4 players</button>
+          <button id="5-players" data-players="5">5 players</button>
+          <button id="6-players" data-players="6">6 players</button>
+          <button id="7-players" data-players="7">7 players</button>
+          <button id="8-players" data-players="8">8 players</button>
         </div>
 
         <!-- Choose starting score -->
         <div class="starting-score">
           <h3 class="setting-heading">Choose starting score</h3>
           <button id="301">301</button>
-          <button id="501">501</button>
+          <button id="501" class="active">501</button>
         </div>
         <!-- Choose double or single out -->
         <div class="out-option">
           <h3 class="setting-heading">Choose out option</h3>
-          <button id="double-out">Double out</button>
+          <button id="double-out" class="active">Double out</button>
           <button id="single-out">Single out</button>
         </div>
         <!-- Best of legs -->
         <div class="legs">
           <h3 class="setting-heading">Best of legs</h3>
-          <button id="best-of-1">Best of 1</button>
+          <button id="best-of-1" class="active">Best of 1</button>
           <button id="best-of-3">Best of 3</button>
           <button id="best-of-5">Best of 5</button>
         </div>
         <!-- Handicap -->
         <div class="handicap">
-          <h2 class="setting-heading">Handicap (optional)</h2>
-          <input type="checkbox" />
-          <div class="score-handicap">
-            <h3 class="handi-heading">Score</h3>
-            <button id="handi-301">301</button>
-            <button id="handi-501">501</button>
+          <div class="select-handi">
+            <h2 class="setting-heading">Handicap (optional)</h2>
+            <input type="checkbox" />
           </div>
-          <div class="out-handi">
-            <h3 class="handi-heading">Out</h3>
-            <button id="double-handi">Double out</button>
-            <button id="single-handi">Single out</button>
+          <div class="handi-options hidden">
+            <div class="score-handicap">
+              <h3 class="setting-heading">Score</h3>
+              <button id="handi-301" class="active">301</button>
+              <button id="handi-501">501</button>
+            </div>
+            <div class="out-handi">
+              <h3 class="setting-heading">Out</h3>
+              <button id="double-handi">Double out</button>
+              <button id="single-handi" class="active">Single out</button>
+            </div>
           </div>
         </div>
         <!-- Choos player with handicap -->
-        <div class="player-handicap"></div>
+        <div class="player-handicap hidden"></div>
         <!-- Start game button-->
         <button id="start-game-btn">Start Game</button>
       </section>
