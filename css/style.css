@@ -17,3 +17,6 @@ header {
   font-size: 32px;
   padding: 24px 0;
 }
+.hidden {
+  display: none;
+}
