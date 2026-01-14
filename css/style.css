@@ -14,8 +14,8 @@ main {
 }
 header {
   text-align: center;
-  font-size: 32px;
-  padding: 24px 0;
+  font-size: 3.2rem;
+  padding: 2.4rempx 0;
 }
 .hidden {
   display: none;
