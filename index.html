@@ -3,15 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
     <title>Dart counter</title>
   </head>
   <body>
     <header>
       <h1>Dart counter</h1>
     </header>
-    <main></main>
+    <main>
+      <!-- ==== SETTINGS ==== -->>
+      <section id="settings" class="main-section">
+        <h2 class="section-heading">Settings</h2>
+        <div class="nr-of-players">
+          <h3 class="setting-heading">Choose number of players</h3>
+          <button>2 players</button>
+          <button>3 players</button>
+          <button>4 players</button>
+          <button>5 players</button>
+          <button>6 players</button>
+          <button>7 players</button>
+          <button>8 players</button>
+        </div>
+      </section>
+      <!-- === END SETTINGS ==== -->
+
+      <!-- ==== GAME ==== -->
+      <section id="game" class="main-section hidden"></section>
+      <!-- ==== END GAME ==== -->
+    </main>
     <script src="script/script.js"></script>
   </body>
 </html>
