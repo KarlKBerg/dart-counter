@@ -192,6 +192,12 @@ button:hover {
 #new-game-btn:hover {
   background: #fe6363;
 }
+/* DISPLAY MESSAGE */
+.display-message {
+  text-align: center;
+
+  border-radius: 0.8rem;
+}
 /* HIDDEN */
 .hidden {
   display: none;
@@ -200,6 +206,17 @@ button:hover {
 .active {
   background: #197c00;
 }
+/* PLAYER TURN */
 .player-turn {
   background: #5625aa;
+}
+/* ERROR */
+.error {
+  background: red;
+  padding: 1.6rem;
+}
+/* SUCCESS */
+.success {
+  background: green;
+  padding: 1.6rem;
 }
