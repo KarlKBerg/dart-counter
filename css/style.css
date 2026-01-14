@@ -11,12 +11,67 @@ body {
 main {
   width: 80%;
   margin: 0 auto;
+  font-size: 2.4rem;
 }
 header {
   text-align: center;
-  font-size: 3.2rem;
-  padding: 2.4rempx 0;
+  font-size: 4.2rem;
+  padding: 2.4rem 0;
 }
+.main-section {
+  width: 50%;
+  background: #2f2f2f;
+  margin: 0 auto;
+  padding: 2.4rem;
+  border-radius: 0.8rem;
+}
+/* SETTINGS */
+#settings {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+.setting-heading {
+  font-size: 1.6rem;
+}
+/* BUTTONS */
+button {
+  font-size: 1.6rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 0.8rem;
+  background: #181818;
+  margin-top: 1.6rem;
+  color: white;
+  border: 1px solid white;
+}
+button:hover {
+  cursor: pointer;
+  background: #313131;
+}
+
+/* HANDICAP */
+.handi-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin-top: 1.6rem;
+}
+.select-handi {
+  display: flex;
+  gap: 1.6rem;
+}
+/* START GAME BUTTON */
+#start-game-btn {
+  background: #197c00;
+}
+#start-game-btn:hover {
+  background: #239700;
+}
+/* HIDDEN */
 .hidden {
   display: none;
+}
+/* ACTIVE */
+.active {
+  background: #197c00;
 }
