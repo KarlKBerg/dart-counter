@@ -92,6 +92,7 @@ button:hover {
 /* Player cards */
 .game-container {
   display: flex;
+  gap: 1.6rem;
 }
 #players-container,
 #current-player {
