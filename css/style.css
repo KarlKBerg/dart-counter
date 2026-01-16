@@ -106,14 +106,14 @@ button:hover {
   gap: 0.8rem;
 }
 .player-card {
-  background: #7728fe;
+  background: #5625aa;
   border-radius: 1.6rem;
   padding: 1.6rem;
   display: flex;
   justify-content: space-between;
 }
 #current-player {
-  background: #5625aa;
+  background: #7728fe;
   border-radius: 1.6rem;
   padding: 1.6rem;
   display: flex;
@@ -209,7 +209,7 @@ button:hover {
 }
 /* PLAYER TURN */
 .player-turn {
-  background: #5625aa;
+  background: #7728fe;
 }
 /* ERROR */
 .error {
