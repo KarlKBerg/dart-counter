@@ -248,7 +248,7 @@ function displayCurrentPlayerStats() {
 
     const avgValue = document.createElement("h4");
     avgValue.classList.add("value");
-    avgValue.textContent = playerIsMyTurn.avg;
+    avgValue.textContent = Math.round(playerIsMyTurn.avg);
 
     const lastScoreTitle = document.createElement("h4");
     lastScoreTitle.classList.add("title");
@@ -256,7 +256,8 @@ function displayCurrentPlayerStats() {
 
     const lastScoreValue = document.createElement("h4");
     lastScoreValue.classList.add("value");
-    lastScoreValue.textContent = playerIsMyTurn.lastScore;
+    lastScoreValue.textContent =
+      playerIsMyTurn.lastScore[playerIsMyTurn.lastScore.length - 1];
 
     const dartsThrownTitle = document.createElement("h4");
     dartsThrownTitle.classList.add("title");
@@ -264,7 +265,7 @@ function displayCurrentPlayerStats() {
 
     const dartsThrownValue = document.createElement("h4");
     dartsThrownValue.classList.add("value");
-    dartsThrownValue.textContent = playerIsMyTurn.throws.length;
+    dartsThrownValue.textContent = playerIsMyTurn.throws;
 
     currentPlayerDiv.appendChild(infoDiv);
     infoDiv.appendChild(nameHeading);
@@ -362,6 +363,38 @@ function submitTurn() {
     }
   }
 }
+
+function displayWinningPage() {
+  const winningStats = document.getElementById("all-player-stats");
+  winningStats.innerHTML = "";
+  players.forEach((player) => {
+    const nameHeading = document.createElement("h3");
+    nameHeading.textContent = player.name;
+
+    const playerDiv = document.createElement("div");
+    playerDiv.classList.add("info");
+
+    const avg = document.createElement("h4");
+    avg.classList.add("value");
+    avg.textContent = `Total average: ${Math.round(player.avg)}`;
+
+    const dartsThrown = document.createElement("h4");
+    dartsThrown.textContent = `Total Throws: ${player.throws}`;
+
+    const highestScore = document.createElement("h4");
+    highestScore.textContent = `Highest score: ${Math.max(
+      ...player.lastScore
+    )}`;
+
+    winningStats.appendChild(playerDiv);
+    playerDiv.appendChild(nameHeading);
+    playerDiv.appendChild(avg);
+    playerDiv.appendChild(dartsThrown);
+    playerDiv.appendChild(highestScore);
+  });
+}
+
+displayCurrentPlayerStats();
 function playerWon() {
   const playerIsMyTurn = players.find((player) => player.isMyTurn === true);
   showSuccessMessage(`Congratulations! ${playerIsMyTurn.name}, You won!`);
