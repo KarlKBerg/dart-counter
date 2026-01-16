@@ -317,7 +317,10 @@ function submitTurn() {
     if (playerIsMyTurn.doubleOut) {
       if (tempScore === playerIsMyTurn.currentScore) {
         // Player won
+        updatePlayer();
         playerWon();
+        displayPlayers();
+        displayCurrentPlayerStats();
       } else if (tempScore > playerIsMyTurn.currentScore) {
         showErrorMessage("No score");
         // Update throws, update stats and move turn to next player.
@@ -345,7 +348,10 @@ function submitTurn() {
     } else {
       if (tempScore === playerIsMyTurn.currentScore) {
         // Player won
+        updatePlayer();
         playerWon();
+        displayPlayers();
+        displayCurrentPlayerStats();
       } else if (tempScore > playerIsMyTurn.currentScore) {
         showErrorMessage("No score");
         playerBust();
@@ -365,6 +371,8 @@ function submitTurn() {
 }
 
 function displayWinningPage() {
+  const playerIsMyTurn = players.find((player) => player.isMyTurn === true);
+  showSuccessMessage(`Congratulations! ${playerIsMyTurn.name}, You won!`);
   const winningStats = document.getElementById("all-player-stats");
   winningStats.innerHTML = "";
   players.forEach((player) => {
@@ -372,8 +380,8 @@ function displayWinningPage() {
     nameHeading.textContent = player.name;
 
     const playerDiv = document.createElement("div");
-    playerDiv.classList.add("info");
-
+    playerDiv.classList.add("player-div");
+    playerDiv.id = player.currentScore;
     const avg = document.createElement("h4");
     avg.classList.add("value");
     avg.textContent = `Total average: ${Math.round(player.avg)}`;
@@ -392,12 +400,14 @@ function displayWinningPage() {
     playerDiv.appendChild(dartsThrown);
     playerDiv.appendChild(highestScore);
   });
+  document.getElementById("0").style.backgroundColor = "green";
+  document.getElementById("game").classList.add("hidden");
+  document.getElementById("winning-stats").classList.remove("hidden");
 }
 
 displayCurrentPlayerStats();
 function playerWon() {
-  const playerIsMyTurn = players.find((player) => player.isMyTurn === true);
-  showSuccessMessage(`Congratulations! ${playerIsMyTurn.name}, You won!`);
+  displayWinningPage();
   document.getElementById("keypad").classList.add("hidden");
   document.getElementById("new-game-btn").style.backgroundColor = "green";
 }
@@ -466,6 +476,7 @@ function playerBust() {
 
 // New game/reset button eventListener
 document.getElementById("new-game-btn").addEventListener("click", resetGame);
+document.getElementById("play-again").addEventListener("click", resetGame);
 
 /*
 - Player stats: 
