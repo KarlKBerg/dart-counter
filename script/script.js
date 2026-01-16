@@ -165,7 +165,7 @@ const createPlayer = (playerNumber, name, startingScore, doubleOut) => {
     name: name || `Player ${playerNumber + 1}`,
     startingScore: startingScore,
     currentScore: startingScore,
-    throws: [],
+    throws: 0,
     avg: 0,
     lastScore: [],
     handicap: false,
@@ -322,12 +322,17 @@ function submitTurn() {
       } else if (tempScore > playerIsMyTurn.currentScore) {
         showErrorMessage("No score");
         // Update throws, update stats and move turn to next player.
+        nextPlayerTurn();
       } else {
         if (playerIsMyTurn.currentScore - tempScore === 1) {
           showErrorMessage("No score, Can't checkout 1");
           // Run playerBust()
+
+          nextPlayerTurn();
         } else {
           // Player did not win yet, update score and stats + move to next player
+          updatePLayer();
+          nextPlayerTurn();
         }
       }
     } else {
@@ -337,15 +342,32 @@ function submitTurn() {
       } else if (tempScore > playerIsMyTurn.currentScore) {
         showErrorMessage("No score");
         // Update throws, set score === 0, update stats and move turn to next player.
+
+        nextPlayerTurn();
       } else {
         // Player did not win yet, update score and stats + move to next player
+        updatePlayer();
+        nextPlayerTurn();
       }
     }
   }
 }
 
 // Move current player
-function nextPlayerTurn() {}
+function nextPlayerTurn() {
+  const index = players.findIndex((player) => player.isMyTurn === true);
+  let lastPLayer = players.length - 1;
+
+  if (index !== lastPLayer) {
+    // Next player
+    players[index].isMyTurn = false;
+    players[index + 1].isMyTurn = true;
+  } else {
+    // First player's turn
+    players[lastPLayer].isMyTurn = false;
+    players[0].isMyTurn = true;
+  }
+}
 
 // Update player
 function updatePlayer() {
@@ -355,14 +377,19 @@ function updatePlayer() {
   playerIsMyTurn.currentScore = playerIsMyTurn.currentScore - tempScore;
 
   // Push last score to scores array
-  tempScore.push(playerIsMyTurn.lastScore);
+  playerIsMyTurn.lastScore.push(tempScore);
 
   // Calculate average
-  let average = playerIsMyTurn.lastScore.forEach((index) => {});
+  let average = playerIsMyTurn.lastScore;
+  let sum = 0;
+  sum = 0;
+  for (let i = 0; i < average.length; i++) {
+    sum += average[i];
+  }
+  playerIsMyTurn.avg = sum / average.length;
 
   // Calculate throws
-  let throws = playerIsMyTurn.lastScore.length / 3;
-  throws.push(playerIsMyTurn.throws);
+  playerIsMyTurn.throws = average.length * 3;
 }
 
 // New game/reset button eventListener
