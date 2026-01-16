@@ -227,7 +227,30 @@ button:hover {
 #play-again:hover {
   background: #239700;
 }
-
+/* PROMT */
+.double-promt {
+  text-align: center;
+}
+.buttons {
+  display: flex;
+  gap: 2.4rem;
+  justify-content: center;
+}
+.buttons button {
+  font-size: 2.4rem;
+}
+#yes-button {
+  background: #197c00;
+}
+#yes-button:hover {
+  background: #239700;
+}
+#no-button {
+  background-color: #b10000;
+}
+#no-button:hover {
+  background-color: #d80101;
+}
 /* HIDDEN */
 .hidden {
   display: none;
