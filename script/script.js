@@ -314,12 +314,9 @@ function submitTurn() {
   } else {
     // Check if user has double out or single out
     if (playerIsMyTurn.doubleOut) {
-      if (
-        tempScore === playerIsMyTurn.currentScore &&
-        playerIsMyTurn.lastDartDouble
-      ) {
+      if (tempScore === playerIsMyTurn.currentScore) {
         // Player won
-        showSuccessMessage(`Congratulations! ${playerIsMyTurn.name}, You won!`);
+        playerWon();
       } else if (tempScore > playerIsMyTurn.currentScore) {
         showErrorMessage("No score");
         // Update throws, update stats and move turn to next player.
@@ -347,7 +344,7 @@ function submitTurn() {
     } else {
       if (tempScore === playerIsMyTurn.currentScore) {
         // Player won
-        showSuccessMessage(`Congratulations! ${playerIsMyTurn.name}, You won!`);
+        playerWon();
       } else if (tempScore > playerIsMyTurn.currentScore) {
         showErrorMessage("No score");
         playerBust();
@@ -364,6 +361,12 @@ function submitTurn() {
       }
     }
   }
+}
+function playerWon() {
+  const playerIsMyTurn = players.find((player) => player.isMyTurn === true);
+  showSuccessMessage(`Congratulations! ${playerIsMyTurn.name}, You won!`);
+  document.getElementById("keypad").classList.add("hidden");
+  document.getElementById("new-game-btn").style.backgroundColor = "green";
 }
 
 // Move current player
