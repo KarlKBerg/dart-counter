@@ -167,7 +167,7 @@ const createPlayer = (playerNumber, name, startingScore, doubleOut) => {
     currentScore: startingScore,
     throws: [],
     avg: 0,
-    lastScore: 0,
+    lastScore: [],
     handicap: false,
     doubleOut: doubleOut,
     legsWon: 0,
@@ -323,7 +323,7 @@ function submitTurn() {
         showErrorMessage("No score");
         // Update throws, update stats and move turn to next player.
       } else {
-        if (playerIsMyTurn.currentScore - tempScore) {
+        if (playerIsMyTurn.currentScore - tempScore === 1) {
           showErrorMessage("No score, Can't checkout 1");
           // Run playerBust()
         } else {
@@ -334,7 +334,7 @@ function submitTurn() {
       if (tempScore === playerIsMyTurn.currentScore) {
         // Player won
         showSuccessMessage(`Congratulations! ${playerIsMyTurn.name}, You won!`);
-      } else if (tempScore > playerIsMyTurn.currentScore === 1) {
+      } else if (tempScore > playerIsMyTurn.currentScore) {
         showErrorMessage("No score");
         // Update throws, set score === 0, update stats and move turn to next player.
       } else {
@@ -347,8 +347,23 @@ function submitTurn() {
 // Move current player
 function nextPlayerTurn() {}
 
-// Update score
-function updateScore(score) {}
+// Update player
+function updatePlayer() {
+  const playerIsMyTurn = players.find((player) => player.isMyTurn === true);
+  let tempScore = parseInt(score);
+  // Update score
+  playerIsMyTurn.currentScore = playerIsMyTurn.currentScore - tempScore;
+
+  // Push last score to scores array
+  tempScore.push(playerIsMyTurn.lastScore);
+
+  // Calculate average
+  let average = playerIsMyTurn.lastScore.forEach((index) => {});
+
+  // Calculate throws
+  let throws = playerIsMyTurn.lastScore.length / 3;
+  throws.push(playerIsMyTurn.throws);
+}
 
 // New game/reset button eventListener
 document.getElementById("new-game-btn").addEventListener("click", resetGame);
