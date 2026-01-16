@@ -172,6 +172,7 @@ const createPlayer = (playerNumber, name, startingScore, doubleOut) => {
     doubleOut: doubleOut,
     legsWon: 0,
     isMyTurn: playerNumber === 0 ? true : false,
+    lastDartDouble: false,
   };
   players.push(defaultPlayer);
 };
@@ -299,6 +300,55 @@ function startGame() {
 
   document.getElementById("game").classList.remove("hidden");
 }
+
+// Game logic
+
+// Player presses submit
+function submitTurn() {
+  const playerIsMyTurn = players.find((player) => player.isMyTurn === true);
+  let tempScore = parseInt(score);
+  if (!playerIsMyTurn) {
+    showErrorMessage("Error, It is not your turn"); // Guard to check for logic error
+    return;
+  } else {
+    // Check if user has double out or single out
+    if (playerIsMyTurn.doubleOut) {
+      if (
+        tempScore === playerIsMyTurn.currentScore &&
+        playerIsMyTurn.lastDartDouble
+      ) {
+        // Player won
+        showSuccessMessage(`Congratulations! ${playerIsMyTurn.name}, You won!`);
+      } else if (tempScore > playerIsMyTurn.currentScore) {
+        showErrorMessage("No score");
+        // Update throws, update stats and move turn to next player.
+      } else {
+        if (playerIsMyTurn.currentScore - tempScore) {
+          showErrorMessage("No score, Can't checkout 1");
+          // Run playerBust()
+        } else {
+          // Player did not win yet, update score and stats + move to next player
+        }
+      }
+    } else {
+      if (tempScore === playerIsMyTurn.currentScore) {
+        // Player won
+        showSuccessMessage(`Congratulations! ${playerIsMyTurn.name}, You won!`);
+      } else if (tempScore > playerIsMyTurn.currentScore === 1) {
+        showErrorMessage("No score");
+        // Update throws, set score === 0, update stats and move turn to next player.
+      } else {
+        // Player did not win yet, update score and stats + move to next player
+      }
+    }
+  }
+}
+
+// Move current player
+function nextPlayerTurn() {}
+
+// Update score
+function updateScore(score) {}
 
 // New game/reset button eventListener
 document.getElementById("new-game-btn").addEventListener("click", resetGame);
