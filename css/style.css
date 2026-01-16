@@ -19,7 +19,7 @@ header {
   padding: 2.4rem 0;
 }
 .main-section {
-  width: 60%;
+  width: 80%;
   background: #2f2f2f;
   margin: 0 auto;
   padding: 2.4rem;
@@ -199,6 +199,34 @@ button:hover {
 
   border-radius: 0.8rem;
 }
+/* WINNING DISPLAY */
+#all-player-stats {
+  display: flex;
+  gap: 1.6rem;
+  justify-content: center;
+}
+.player-div {
+  background: #5625aa;
+  display: flex;
+  flex-direction: column;
+  gap: 4.8rem;
+  padding: 1.6rem;
+  border-radius: 0.8rem;
+}
+.player-div h3 {
+  font-size: 3.2rem;
+  text-align: center;
+}
+#play-again {
+  background: #197c00;
+  width: 100%;
+  padding: 1.6rem;
+  font-size: 2.4rem;
+}
+#play-again:hover {
+  background: #239700;
+}
+
 /* HIDDEN */
 .hidden {
   display: none;
