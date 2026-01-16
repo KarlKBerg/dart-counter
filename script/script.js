@@ -33,6 +33,7 @@ document.getElementById("submit-score").addEventListener("click", () => {
     document.getElementById("score-input").value = score;
     return;
   } else {
+    submitTurn();
     score = "";
     document.getElementById("score-input").value = score;
   }
@@ -322,17 +323,25 @@ function submitTurn() {
       } else if (tempScore > playerIsMyTurn.currentScore) {
         showErrorMessage("No score");
         // Update throws, update stats and move turn to next player.
+        playerBust();
+
         nextPlayerTurn();
+        displayPlayers();
+        displayCurrentPlayerStats();
       } else {
         if (playerIsMyTurn.currentScore - tempScore === 1) {
           showErrorMessage("No score, Can't checkout 1");
-          // Run playerBust()
+          playerBust();
 
           nextPlayerTurn();
+          displayPlayers();
+          displayCurrentPlayerStats();
         } else {
           // Player did not win yet, update score and stats + move to next player
-          updatePLayer();
+          updatePlayer();
           nextPlayerTurn();
+          displayPlayers();
+          displayCurrentPlayerStats();
         }
       }
     } else {
@@ -341,13 +350,17 @@ function submitTurn() {
         showSuccessMessage(`Congratulations! ${playerIsMyTurn.name}, You won!`);
       } else if (tempScore > playerIsMyTurn.currentScore) {
         showErrorMessage("No score");
-        // Update throws, set score === 0, update stats and move turn to next player.
+        playerBust();
 
         nextPlayerTurn();
+        displayPlayers();
+        displayCurrentPlayerStats();
       } else {
         // Player did not win yet, update score and stats + move to next player
         updatePlayer();
         nextPlayerTurn();
+        displayPlayers();
+        displayCurrentPlayerStats();
       }
     }
   }
@@ -387,6 +400,29 @@ function updatePlayer() {
     sum += average[i];
   }
   playerIsMyTurn.avg = sum / average.length;
+
+  // Calculate throws
+  playerIsMyTurn.throws = average.length * 3;
+}
+
+// Player bust logic
+function playerBust() {
+  const playerIsMyTurn = players.find((player) => player.isMyTurn === true);
+  let tempScore = 0;
+
+  playerIsMyTurn.currentScore = playerIsMyTurn.currentScore;
+
+  // Push last score to scores array
+  playerIsMyTurn.lastScore.push(tempScore);
+
+  // Calculate average
+  let average = playerIsMyTurn.lastScore;
+  let sum = 0;
+  sum = 0;
+  for (let i = 0; i < average.length; i++) {
+    sum += average[i];
+  }
+  playerIsMyTurn.avg = (sum / average.length) * 3;
 
   // Calculate throws
   playerIsMyTurn.throws = average.length * 3;
