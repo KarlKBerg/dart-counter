@@ -4,6 +4,8 @@ let playerCount = 2;
 let selectedScore = 501;
 let doubleOut = true;
 let legsToWin = 1;
+let pendingCheckout = false;
+let pendingCheckoutScore = null;
 
 let score = "";
 
@@ -311,7 +313,21 @@ function submitTurn() {
   } else {
     // Check if user has double out or single out
     if (playerIsMyTurn.doubleOut) {
-      if (tempScore === playerIsMyTurn.currentScore) {
+      if (
+        playerIsMyTurn.currentScore === tempScore &&
+        playerIsMyTurn.lastDartDouble !== true
+      ) {
+        pendingCheckout = true;
+        pendingCheckoutScore = tempScore; // 🔴 THIS WAS MISSING
+        document.getElementById("game").classList.add("hidden");
+        document.getElementById("double-prompt").classList.remove("hidden");
+        return;
+      }
+
+      if (
+        tempScore === playerIsMyTurn.currentScore &&
+        playerIsMyTurn.lastDartDouble === true
+      ) {
         // Player won
         updatePlayer();
         playerWon();
@@ -348,6 +364,7 @@ function submitTurn() {
         playerWon();
         displayPlayers();
         displayCurrentPlayerStats();
+        displayWinningPage();
       } else if (tempScore > playerIsMyTurn.currentScore) {
         showErrorMessage("No score");
         playerBust();
@@ -364,6 +381,51 @@ function submitTurn() {
       }
     }
   }
+}
+
+document.querySelectorAll(".buttons button").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const player = players.find((p) => p.isMyTurn);
+
+    document.getElementById("double-prompt").classList.add("hidden");
+    document.getElementById("game").classList.remove("hidden");
+
+    if (btn.dataset.last === "true") {
+      player.lastDartDouble = true;
+      resolveCheckout(); // ✅ FINISHES THE LEG
+    } else {
+      playerBust();
+      nextPlayerTurn();
+      displayPlayers();
+      displayCurrentPlayerStats();
+    }
+  });
+});
+
+function resolveCheckout() {
+  if (!pendingCheckout || pendingCheckoutScore === null) return;
+
+  const player = players.find((p) => p.isMyTurn);
+
+  // Use the STORED checkout score
+  const scoreToApply = pendingCheckoutScore;
+
+  // Apply score
+  player.currentScore -= scoreToApply;
+  player.lastScore.push(scoreToApply);
+
+  // Update stats
+  const sum = player.lastScore.reduce((a, b) => a + b, 0);
+  player.avg = sum / player.lastScore.length;
+  player.throws = player.lastScore.length * 3;
+
+  // Finish leg
+  playerWon();
+
+  // Cleanup
+  pendingCheckout = false;
+  pendingCheckoutScore = null;
+  player.lastDartDouble = false;
 }
 
 function displayWinningPage() {
@@ -473,43 +535,3 @@ function playerBust() {
 // New game/reset button eventListener
 document.getElementById("new-game-btn").addEventListener("click", resetGame);
 document.getElementById("play-again").addEventListener("click", resetGame);
-
-/*
-- Player stats: 
-  - Last scores (Array)
-  - Average score 3-darts (calculated from array)
-  - Total throws (can be calculated from array, array.length / 3)
-
-- Win condition
-  - Display winner
-    START 
-      IF scor is 0 
-      AND last score is double 
-      THEN display winner
-    END
-  - Play again button
-    START
-      IF winner is displayed
-      AND legs/sets is over
-      AND play again button is clicked
-      THEN reset game
-    END
-  - Double out check
-      START
-      IF score is 0
-      PROMT player to confirm last score was double
-      IF not double
-      REVERT score to before last throw
-      NOTIFY player that last score must be double to win
-    END
-  - Display possible checkouts?
-
-- Reset game (auto when player wins)
-- Legs, sets (best of X)
-- Sound effects
-- Mobile friendly
-- Validate score input (0-180)
-- History log (display all scores thrown in the game at end of round)
-
-)
-*/
