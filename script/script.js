@@ -121,7 +121,6 @@ const resetGame = () => {
   document.getElementById("settings").classList.remove("hidden");
   document.getElementById("game").classList.add("hidden");
   document.getElementById("winning-stats").classList.add("hidden");
-  document.getElementById("player-names-container").innerHTML = "";
   location.reload();
 };
 
@@ -531,7 +530,22 @@ function playerBust() {
   // Calculate throws
   playerIsMyTurn.throws = average.length * 3;
 }
+let quit = document.getElementById("quit-button");
+let cancel = document.getElementById("no-quit-button");
+let newGamePrompt = document.getElementById("new-game-prompt");
 
+document.getElementById("new-game-btn").addEventListener("click", showPrompt);
+quit.addEventListener("click", resetGame);
+cancel.addEventListener("click", cancelFunc);
+function showPrompt() {
+  document.getElementById("new-game-prompt").classList.remove("hidden");
+  document.getElementById("game").classList.add("hidden");
+}
+function cancelFunc() {
+  document.getElementById("new-game-prompt").classList.add("hidden");
+  document.getElementById("game").classList.remove("hidden");
+  return;
+}
 // New game/reset button eventListener
-document.getElementById("new-game-btn").addEventListener("click", resetGame);
+// document.getElementById("new-game-btn").addEventListener("click", resetGame);
 document.getElementById("play-again").addEventListener("click", resetGame);
