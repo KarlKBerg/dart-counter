@@ -118,13 +118,9 @@ const resetGame = () => {
   legsToWin = 1;
   document.getElementById("settings").classList.remove("hidden");
   document.getElementById("game").classList.add("hidden");
-  document
-    .querySelectorAll(".nr-of-players button")
-    .forEach((b) => b.classList.remove("active"));
-  document
-    .querySelector('.nr-of-players button[data-players="2"]')
-    .classList.add("active");
+  document.getElementById("winning-stats").classList.add("hidden");
   document.getElementById("player-names-container").innerHTML = "";
+  location.reload();
 };
 
 // Handle starting score selection
