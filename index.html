@@ -109,6 +109,7 @@
 
           <div id="current-player"></div>
         </div>
+
         <div class="keypad" id="keypad">
           <div class="input-submit">
             <input type="number" id="score-input" placeholder="Enter score" />
@@ -131,6 +132,17 @@
         <button id="new-game-btn" class="">New Game</button>
       </section>
       <!-- ==== END GAME ==== -->
+      <div class="double-promt main-section hidden" id="double-prompt">
+        <h3>Was last dart a double?</h3>
+        <div class="buttons" id="last-dart-buttons">
+          <button class="last-dart-button" id="yes-button" data-last="true">
+            Yes
+          </button>
+          <button class="last-dart-button" id="no-button" data-last="false">
+            No
+          </button>
+        </div>
+      </div>
       <!-- ==== WINNING DISPLAY ==== -->
       <section class="main-section hidden" id="winning-stats">
         <div id="all-player-stats"></div>
